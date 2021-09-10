@@ -20,10 +20,10 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'isAdmin'])->name('dashboard');
 
 
-Route::middleware('isConnected')->group(function () {
+Route::middleware(['isConnected', 'roleVerification'])->group(function () {
     Route::resource('/article', ArticleController::class);
 });
 

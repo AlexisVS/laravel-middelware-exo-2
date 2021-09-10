@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserNotConnectedMiddleware
+class IsAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class UserNotConnectedMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() == true) {
+        if (Auth::user()->role_id == 1) {
             return $next($request);
         }
         return redirect('/');
