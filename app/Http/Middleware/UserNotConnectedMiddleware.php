@@ -17,7 +17,7 @@ class UserNotConnectedMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() == true) {
+        if (Auth::check()) {
             return $next($request);
         }
         return redirect('/');

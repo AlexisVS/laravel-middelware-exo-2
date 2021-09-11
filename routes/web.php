@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DashboardArticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'isAdmin'])->name('dashboard');
 
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+    Route::resource('/dashboard/article', DashboardArticleController::class);
+
+});
 
 Route::middleware(['isConnected', 'roleVerification'])->group(function () {
     Route::resource('/article', ArticleController::class);
