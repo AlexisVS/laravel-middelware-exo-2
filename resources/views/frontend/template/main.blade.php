@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  @include('frontend.template.navigation')
   @yield('content')
   <script src="{{ asset('js/app.js') }}"></script>
 </body>

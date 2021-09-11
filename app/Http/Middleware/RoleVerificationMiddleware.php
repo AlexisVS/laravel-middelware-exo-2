@@ -24,6 +24,18 @@ class RoleVerificationMiddleware
             case 2:
                 return $next($request);
                 break;
+            case 3:
+                if ($request->url() == "http://127.0.0.1:8000/dashboard/user") {
+                    return redirect('/dashboard');
+                }
+                return $next($request);
+                break;
+            case 4:
+                if ($request->url() == "http://127.0.0.1:8000/dashboard/user") {
+                    return redirect('/dashboard');
+                }
+                return $next($request);
+                break;
             default:
                 return redirect('/');
                 break;

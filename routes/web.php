@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardArticleController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,13 +21,17 @@ Route::get('/', function () {
 });
 
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
+Route::middleware(['auth', 'roleVerification'])->group(function () {
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
     Route::resource('/dashboard/article', DashboardArticleController::class);
+    Route::get('/dashboard/user', function () {
+        $users = User::all();
+        return view('dashboard.pages.user.index', compact('users'));
+    });
 
 });
 
-Route::middleware(['isConnected', 'roleVerification'])->group(function () {
+Route::middleware(['isConnected'])->group(function () {
     Route::resource('/article', ArticleController::class);
 });
 
